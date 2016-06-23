@@ -3,8 +3,13 @@ var sass = require('gulp-ruby-sass');
 var connect = require('gulp-connect');
 // requires browserify and vinyl-source-stream
 var browserify = require('browserify');
+var uglify      = require('gulp-uglify');
+var streamify   = require('gulp-streamify');
 var source = require('vinyl-source-stream');
 var livereload = require('gulp-livereload');
+var jasmine = require('gulp-jasmine');
+
+var server = require('karma').Server;
 
 // Connect task
 gulp.task('connect', function () {
@@ -17,9 +22,10 @@ gulp.task('connect', function () {
 gulp.task('browserify', function() {
 	// Grabs the app.js file
     return browserify('./app/app.js')
-    	// bundles it and creates a file called main.js
+    	// bundles and uglyfies  it, creates a file called all.min.js
         .bundle()
-        .pipe(source('main.js'))
+        .pipe(source('all.min.js'))
+        .pipe(streamify(uglify()))
         // saves it the public/js/ directory
         .pipe(gulp.dest('./public/js/'))
         .pipe(livereload());
@@ -45,4 +51,10 @@ gulp.task('watch2', function() {
 	gulp.watch('public/**/*.*', ['reload']);
 })
 
-gulp.task('default', ['connect', 'watch', 'watch2'])
+gulp.task('tdd', function (done) {
+  new server({
+    configFile: __dirname + '/karma.conf.js',
+  }, done).start();
+});
+
+gulp.task('default', ['connect', 'watch', 'watch2', 'tdd'])
