@@ -3,11 +3,24 @@
 <head>
 	<meta charset="UTF-8">
 	<title>My App</title>
-	<script src="/js/all.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
-<body>
-	<div ng-controller="MainController">
-		<h1>{{message}}</h1>
+<body ng-controller="MainController as main">
+	<div class="container" ng-class="main.themeMap">
+		<nav>
+			<div class="container">
+				<img src="">
+		  		<a href="/">My Blog</a>
+		  		<a href="/#/favorite/">Favorite</a>
+		  		<a href="/#/friends/">Friends</a>
+		  		<a href="/#/popular/">Popular</a>
+	  		</div>
+		</nav>
+		<div id="content" ng-view>
+		</div>
 	</div>
 </body>
+<footer>
+	<script src="/js/all.min.js"></script>
+</footer>
 </html>

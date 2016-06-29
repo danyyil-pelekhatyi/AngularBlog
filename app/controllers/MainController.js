@@ -1,3 +1,6 @@
-module.exports = function($scope) {
-	$scope.message = 'Two birds killed with one stone!'
+module.exports = function(ThemeService, LoginService, $route) {
+	var vm = this;
+	vm.themeMap = ThemeService.getThemeMap();
+	vm.isLoggedIn = LoginService.isLoggedIn;
+	vm.getCurrentUser = LoginService.getCurrentUser;
 }

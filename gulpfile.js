@@ -5,6 +5,7 @@ var connect = require('gulp-connect');
 var browserify = require('browserify');
 var uglify      = require('gulp-uglify');
 var streamify   = require('gulp-streamify');
+var cleanCSS = require('gulp-clean-css');
 var source = require('vinyl-source-stream');
 var livereload = require('gulp-livereload');
 var jasmine = require('gulp-jasmine');
@@ -25,31 +26,23 @@ gulp.task('browserify', function() {
     	// bundles and uglyfies  it, creates a file called all.min.js
         .bundle()
         .pipe(source('all.min.js'))
-        .pipe(streamify(uglify()))
+        //.pipe(streamify(uglify()))
         // saves it the public/js/ directory
         .pipe(gulp.dest('./public/js/'))
         .pipe(livereload());
 })
 
-gulp.task('reload', () => {
-	return livereload.reload();
-})
-
 gulp.task('watch', function() {
 	gulp.watch('app/**/*.js', ['browserify']);
+	gulp.watch('app/css/*.css', ['minify']);
 })
 
-gulp.task('watch2', function() {
-	livereload.listen({
-		port: "4000",
-		host: "localhost",
-		basePath: "localhost:4000",
-		start: true,
-		quiet: false,
-		reloadPage: "index.html"
-	});
-	gulp.watch('public/**/*.*', ['reload']);
-})
+gulp.task('minify', function() {
+  return gulp.src('app/css/**/*.*')
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('public/css'))
+    .pipe(livereload());;
+});
 
 gulp.task('tdd', function (done) {
   new server({
@@ -57,4 +50,4 @@ gulp.task('tdd', function (done) {
   }, done).start();
 });
 
-gulp.task('default', ['connect', 'watch', 'watch2', 'tdd'])
+gulp.task('default', ['minify', 'connect', 'tdd', 'watch'])
