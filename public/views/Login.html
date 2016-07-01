@@ -1,0 +1,16 @@
+<form class="login-form" ng-hide="main.isLoggedIn()">
+	<fieldset>
+		<input ng-model="login.loginUser.username" id="username" type="text" placeholder="Username" >
+		<input ng-model="login.loginUser.password" id="password" type="password" placeholder="Password" >
+		<input type="submit" value="Login" ng-click="login.login()">
+	</fieldset>
+</form>
+<form class="registration-form" ng-hide="main.isLoggedIn()">
+	<fieldset>
+		<input ng-model="login.registerUser.username" id="username" type="text"     placeholder="Username" >
+		<input ng-model="login.registerUser.password" id="password" type="password" placeholder="Password" >
+		<input ng-model="login.registerUser.name"     id="name"     type="text"     placeholder="Name" >
+		<input ng-model="login.registerUser.blogname" id="blogname" type="text"     placeholder="Blog name" >
+		<input type="submit" value="Register" ng-click="login.register()">
+	</fieldset>
+</form>

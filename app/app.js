@@ -2,23 +2,31 @@ require('angular')
 require('angular-route')
 
 var LoginService = require('./services/LoginService')
-var UserService = require('./services/UserService')
+var DatabaseService = require('./services/DatabaseService')
 var ThemeService = require('./services/ThemeService')
 var MainController = require('./controllers/MainController')
 var BlogController = require('./controllers/BlogController')
 var LoginController = require('./controllers/LoginController')
+var FriendsController = require('./controllers/FriendsController')
+var ArticlesDirective = require('./directives/ArticlesDirective')
 
 angular.module('app', ['ngRoute'])
-	.service('UserService', ['$log', UserService])
-	.service('LoginService', ['UserService', '$location', '$log', LoginService])
+	.service('DatabaseService', ['$log', DatabaseService])
+	.service('LoginService', ['DatabaseService', '$location', '$log', LoginService])
 	.service('ThemeService', [ThemeService])
-	.controller('MainController', ['ThemeService', 'LoginService', '$route', MainController])
-	.controller('BlogController', ['UserService', '$routeParams', '$log', BlogController])
-	.controller('LoginController', ['$scope', 'LoginService', LoginController])
+	.controller('MainController', ['ThemeService', 'LoginService', MainController])
+	.controller('BlogController', ['DatabaseService', '$routeParams', '$log', BlogController])
+	.controller('LoginController', ['LoginService', LoginController])
+	.controller('FriendsController', ['$scope', 'DatabaseService', FriendsController])
+	.directive('articles', ArticlesDirective)
 	.config(['$routeProvider', '$logProvider',
 		function($routeProvider, $logProvider) {
 			$logProvider.debugEnabled(true);
 			$routeProvider
+				.when('/friends', {
+					controller: "FriendsController as friends",
+					templateUrl: "views/Friends.html"
+				})
 				.when('/login', {
 					controller: "LoginController as login",
 					templateUrl: "views/Login.html"
@@ -33,17 +41,14 @@ angular.module('app', ['ngRoute'])
 	.run(['$rootScope', '$log', '$location', 'LoginService', function($rootScope, $log, $location, LoginService) {
 		$rootScope.$on('$routeChangeStart', function(event, current, previous) {
 			$log.debug('$routeChangeStart - location: ' + $location.path());
-			if($location.path() == '/') {
-				if (LoginService.isLoggedIn()) {
-					$log.debug(LoginService.getCurrentUser().username);
-					$location.path('blogs/' + LoginService.getCurrentUser().username);
-				} else {
+			$log.debug('You are logged in: ' + LoginService.isLoggedIn());
+			if($location.path() == '/' && LoginService.isLoggedIn()) {
+				$location.path('/blogs/' + LoginService.getCurrentUser().username);
+			} else {
+				if($location.path() !== '/login' && !LoginService.isLoggedIn()) {
 					$log.debug('Redirected to login page');
 					$location.path('/login');
 				}
-			}
-			if ($location.path().indexOf('/blogs/') > -1 && !LoginService.isLoggedIn()) {
-				$location.path('/login');
 			}
 		});
 	}]);

@@ -1,0 +1,91 @@
+/* Base styling */
+body, html, div {
+	margin: 0;
+	padding: 0;
+}
+
+nav,
+nav a {
+	line-height: 50px;
+	vertical-align: middle;
+	font-weight: bold;
+}
+
+nav a {
+	padding-left: 15px;
+	padding-right: 15px;
+	font-size: 16px;
+	color: white;
+	text-decoration: none;
+}
+
+nav .container, #content {
+	margin-right: auto;
+	margin-left: auto;
+	width: 1200px;
+}
+
+@media (max-width : 1380px) {
+	
+}
+
+@media (max-width : 1200px) {
+	nav .container, #content {
+		width: 960px;
+	}
+}
+
+@media (max-width : 979px) {
+	nav .container, #content {
+		width: 720px;
+	}
+}
+
+@media (max-width : 767px) {
+	nav .container, #content {
+		width: 90%;
+	}
+}
+/*
+@media only screen and (max-width : 480px) {
+	nav, .content {
+		width: ;
+	}
+}
+
+@media only screen and (max-width : 320px) {
+	nav, .content {
+		width: ;
+	}
+}
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	-webkit-margin-before: 0;
+	-webkit-margin-after: 0;
+}
+
+form input {
+	display: block;
+}
+
+form {
+	display: inline-block;
+}
+
+/* Themes */
+
+.theme-classic nav {
+	background-color: navy;
+}
+
+/* Login / Registration forms */
+form.login-form input+input,
+form.registration-form input+input {
+	margin-top: 10px;
+}
