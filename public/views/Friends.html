@@ -1,5 +1,7 @@
 <div class='friends-list'>
 	<div ng-repeat="friend in friends.friends">
-		<h4 ng-bind="friend.username"></h4>
+		<a ng-href="/#/blogs/{{friend.username}}">
+			<h4 ng-bind="friend.blogname + ' by ' + friend.username"></h4>
+		</a>
 	</div>
 </div>

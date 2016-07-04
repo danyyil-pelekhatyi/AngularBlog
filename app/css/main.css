@@ -89,3 +89,39 @@ form.login-form input+input,
 form.registration-form input+input {
 	margin-top: 10px;
 }
+
+/* New article */
+.new-article {
+	margin-bottom: 20px;
+}
+
+.new-article label,
+.new-article input,
+.new-article textarea {
+	display: block;
+	padding: 5px;
+}
+
+.new-article textarea {
+	resize: none;
+	height: 200px;
+}
+
+.new-article label {
+	margin-top: 5px;
+}
+
+.new-article input,
+.new-article textarea {
+	width: 100%;
+	border: 1px solid black;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.new-article input[type="button"] {
+	width: 90px;
+	margin-top: 10px;
+	border: none;
+}

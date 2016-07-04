@@ -211,6 +211,18 @@ module.exports = function($log) {
 				});
 			}
 			return _cash.userFriends.friends;
+		},
+
+		addArticle: function(user, article) {
+			_articles.push({
+				userId: user.id,
+				id: _articles.length + 1,
+				heading: article.title,
+				article: article.text,
+				author: user.username,
+				date: new Date(Date.now()),
+				upVotes: 0
+			});
 		}
 	};
 
