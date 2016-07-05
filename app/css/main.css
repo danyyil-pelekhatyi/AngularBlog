@@ -78,9 +78,7 @@ form {
 	display: inline-block;
 }
 
-/* Themes */
-
-.theme-classic nav {
+nav {
 	background-color: navy;
 }
 

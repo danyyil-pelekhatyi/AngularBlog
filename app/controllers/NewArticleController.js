@@ -1,12 +1,12 @@
-module.exports = function(DatabaseService, $routeParams) {
+module.exports = function(DatabaseService, LoginService, $routeParams) {
 	var vm = this;
 
 	vm.newArticle = {
-		title: "Title",
-		article: "Text"
+		title: "",
+		article: ""
 	};
 	vm.onSumbit = function() {
-		DatabaseService.addArticle(main.getCurrentUser(), vm.newArticle);
-		$routeParams.reload();
-	}
+		DatabaseService.addArticle(LoginService.getCurrentUser(), vm.newArticle);
+	};
+	vm.lettersCount = (function() {vm.newArticle.article.length;})()
 }

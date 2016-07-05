@@ -1,3 +1,5 @@
 <h1 ng-bind="blog.blogAuthor.blogname"></h1>
-<div ng-Show="main.onTheUsersPage" ng-controller="NewArticleController as newArticle" new-article class="new-article"></div>
+<div ng-Show="blog.onTheUsersPage()">
+	<div ng-controller="NewArticleController as newArticle" new-article class="new-article"></div>
+</div>
 <articles articles="blog.getArticlesByUsername(blog.blogAuthor.username)"/>
