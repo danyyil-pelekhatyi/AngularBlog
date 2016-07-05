@@ -1,6 +1,6 @@
 module.exports = function(DatabaseService, LoginService, $routeParams) {
 	var vm = this;
-
+	
 	vm.newArticle = {
 		title: "",
 		article: ""
@@ -8,5 +8,4 @@ module.exports = function(DatabaseService, LoginService, $routeParams) {
 	vm.onSumbit = function() {
 		DatabaseService.addArticle(LoginService.getCurrentUser(), vm.newArticle);
 	};
-	vm.lettersCount = (function() {vm.newArticle.article.length;})()
 }
