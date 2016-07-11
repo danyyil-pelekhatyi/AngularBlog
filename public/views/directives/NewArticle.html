@@ -4,5 +4,5 @@
 	<label for="newArticleText">Article:</label>
 	<textarea id="newArticleText" ng-model="newArticle.newArticle.article" maxlength="1500"></textarea>
 	<input type="button" ng-click="newArticle.onSumbit()"  value="Post"/>
-	<span ng-show="newArticle.newArticle.article.length > 0" ng-bind="1500 - newArticle.newArticle.article.length + ' left'"></span>
+	<span class="symbols-left" ng-show="newArticle.newArticle.article.length > 0" ng-bind="1500 - newArticle.newArticle.article.length + ' left'"></span>
 </div>

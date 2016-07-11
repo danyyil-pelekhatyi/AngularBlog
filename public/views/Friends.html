@@ -1,8 +1,41 @@
-<div class='friends-list'>
-	<input type="text" ng-model="searchText">
-	<div ng-repeat="friend in friends.friends | filter:searchText">
-		<a ng-href="/#/blogs/{{friend.username}}">
-			<h4 ng-bind="friend.blogname + ' by ' + friend.username"></h4>
-		</a>
+<div class="page-title">
+	<h1>Friends</h1>
+</div>
+<div class="friends">
+	<div class='friends-list' ng-class="friends.anyRequests() ? 'half-screen' : ''">
+		<label for="friends-search">Search:</label>
+		<div class="input-container">
+			<input id="friends-search" type="text" ng-model="friends.searchText">
+		</div>
+		<user-list users="friends.friends()" search-term="friends.searchText" />
+	</div>
+	<div class="friend-requests">
+		<div class="friend-requests-recieved-list user-list" ng-show="friends.friendRequestsRecieved().length > 0">
+			<label>New friend requests:</label>
+			<ul>
+				<li class="friend-requests-recieved-list-item" ng-repeat="friendRequest in friends.friendRequestsRecieved()">
+					<h4>
+						<a ng-href="/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
+						<div class="buttons-container">
+							<input type="button" value="Accept" ng-click="friends.onAcceptRequestClick(friendRequest)" />
+							<input type="button" value="Decline" ng-click="friends.onDeclineRequestClick(friendRequest)" />
+						</div>
+					</h4>
+				</li>
+			</ul>
+		</div>
+		<div class="friend-requests-sent-list user-list" ng-show="friends.friendRequestsSent().length > 0">
+			<label>Friend requests sent:</label>
+			<ul>
+				<li class="friend-requests-sent-list-item" ng-repeat="friendRequest in friends.friendRequestsSent()">
+					<h4>
+						<a ng-href="/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
+						<div class="buttons-container">
+							<input type="button" value="Cancel" ng-click="friends.onCancelRequestClick(friendRequest)" />
+						</div>
+					</h4>
+				</li>
+			</ul>
+		</div>
 	</div>
 </div>

@@ -1,4 +1,4 @@
-module.exports = function(DatabaseService, LoginService, $routeParams) {
+module.exports = function(ArticlesService, LoginService, $routeParams) {
 	var vm = this;
 	
 	vm.newArticle = {
@@ -6,6 +6,10 @@ module.exports = function(DatabaseService, LoginService, $routeParams) {
 		article: ""
 	};
 	vm.onSumbit = function() {
-		DatabaseService.addArticle(LoginService.getCurrentUser(), vm.newArticle);
+		ArticlesService.addArticle(LoginService.getCurrentUser(), vm.newArticle);
+		vm.newArticle = {
+			title: "",
+			article: ""
+		}
 	};
 }

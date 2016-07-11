@@ -22,7 +22,7 @@ nav a {
 nav .container, #content {
 	margin-right: auto;
 	margin-left: auto;
-	width: 1200px;
+	width: 1160px;
 }
 
 @media (max-width : 1380px) {
@@ -82,10 +82,43 @@ nav {
 	background-color: navy;
 }
 
+/* All pages */
+.page-title {
+	margin: 25px 5px 10px 5px;
+}
+
 /* Login / Registration forms */
 form.login-form input+input,
 form.registration-form input+input {
 	margin-top: 10px;
+}
+
+
+/* Blog */
+.page-title h1,
+.page-title span {
+	display: inline-block;
+}
+
+.page-title span.add-to-favorite,
+.page-title span.add-to-friends {
+	float: right;
+	height: 25px;
+	width: 25px;
+	line-height: 25px;
+	margin-top: 7px;
+	margin-right: 5px;
+	background-color: navy;
+	color: white;
+	border-radius: 5px;
+	text-align: center;
+	cursor: pointer;
+}
+
+
+.page-title span.add-to-favorite.added,
+.page-title span.add-to-friends.added {
+	color: red;
 }
 
 /* New article */
@@ -100,26 +133,220 @@ form.registration-form input+input {
 	padding: 5px;
 }
 
+.new-article span,
+.new-article input[type="button"] {
+	display: inline-block;
+}
+
+.new-article span {
+	float: right;
+}
+
 .new-article textarea {
 	resize: none;
 	height: 200px;
 }
 
 .new-article label {
-	margin-top: 5px;
+	margin-top: 10px;
+	padding: 9px 5px;
 }
 
 .new-article input,
 .new-article textarea {
 	width: 100%;
-	border: 1px solid black;
+	border: 1px solid navy;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
+	border-radius: 5px;
+	font-size: 15px;
+}
+
+.new-article input {
+	margin-top: 10px;
+	padding: 10px 5px;
 }
 
 .new-article input[type="button"] {
 	width: 90px;
 	margin-top: 10px;
 	border: none;
+	background-color: navy;
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.new-article span.symbols-left {
+	margin-top: 10px;
+	line-height: 26px;
+}
+
+/* Articles */
+.articles .article:not(.without-rating) {
+	margin-left: 20px;
+}
+
+.articles .article-rating {
+	float: left;
+	width: 16px;
+}
+
+.articles .article-rating {
+	background-color: navy;
+	color: white;
+	vertical-align: top;
+	border-radius: 5px;
+}
+
+.articles .article-rating > div {
+	vertical-align: middle;
+	text-align: center;
+}
+
+.articles .article-rating > div.upvote,
+.articles .article-rating > div.downvote {
+	cursor: pointer;
+}
+
+.articles .article-rating.upvoted > div.upvote,
+.articles .article-rating.downvoted > div.downvote {
+	color: red;
+}
+
+.articles .article h3,
+.articles .article span {
+	display: inline-block;
+}
+
+.articles .article .title > span {
+	float: right;
+	padding-right: 5px;
+}
+
+
+.articles .article .title,
+.articles .article .title {
+	color: white;
+	background-color: navy;
+}
+
+.articles .article {
+	border: 1px solid navy;
+	border-radius: 5px;
+	margin-bottom: 15px;
+}
+
+.articles .article .title {
+	padding: 10px 5px 10px 5px;
+}
+
+.articles .article .content {
+	padding: 0 5px 10px 5px;
+}
+
+/* User list */
+.user-list ul {
+	padding: 0;
+	margin: 0;
+}
+
+.user-list li {
+	margin-top: 10px;
+	list-style: none;
+}
+
+.user-list li h4{
+	background-color: navy;
+	border-radius: 5px;
+	padding: 9px 5px;
+}
+
+.user-list li a,
+.user-list li a:hover,
+.user-list li a:active,
+.user-list li a:visited {
+	text-decoration: none;
+	color: white;
+}
+
+/* Friends */
+.friends {
+	margin-top: -10px;
+}
+
+.friends label {
+	padding: 9px 5px;
+	margin-top: 10px;
+	display: block;
+}
+
+.friends-list input {
+	font-size: 15px;
+	margin-top: 10px;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px 5px;
+	border: 1px solid navy;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.friend-requests .buttons-container {
+	display: inline;
+	float: right;
+}
+
+.friend-requests input[type="button"] {
+	color: navy;
+	border: none;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: bold;
+	background-color: white;
+}
+
+@media only screen and (min-width : 481px) {
+	.friends-list.half-screen,
+	.friend-requests {
+		display: inline-block;
+		width: 50%;
+	}
+
+	.friend-requests {
+		float: right;
+	}
+
+	.friends-list ul,
+	.friends-list .input-container,
+	.friends-list label {
+		margin-right: 5px;
+	}
+
+	.friend-requests ul,
+	.friend-requests input,
+	.friend-requests label {
+		margin-left: 5px;
+	}
+}
+
+/* Favorites */
+.favorites-list label {
+	padding: 9px 5px;
+	margin-top: 10px;
+	display: block;
+}
+
+.favorites-list input {
+	font-size: 15px;
+	margin-top: 10px;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px 5px;
+	border: 1px solid navy;
+	-webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
 }
