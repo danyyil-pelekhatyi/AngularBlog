@@ -1,15 +1,10 @@
-module.exports = function(DatabaseService, $location, $log) {
-	return {
+module.exports = function(DatabaseService, PopupService, $location, $log) {
+	var service = {
 		login: _login,
-
 		logout: _logout,
-
-		register: function(user) { DatabaseService.addUser(user); },
-
+		register: _register,
 		getCurrentUser: function() { return _currentUser; },
-
 		isLoggedIn: function() { return _currentUser !== undefined;	},
-
 		onTheUsersPage: _onTheUsersPage
 	}
 
@@ -19,13 +14,24 @@ module.exports = function(DatabaseService, $location, $log) {
 			DatabaseService.getUserByUsername(cookieUsername) : undefined;
 	})();
 
+	return service;
+
+	function _register(user) {
+		if (DatabaseService.addUser(user))  
+			PopupService.showMessage("Registered new user");
+		else
+			PopupService.showError("Registration failed");
+	}
+
 	function _login(user) {
 		var user = DatabaseService.validateCredentials(user);
 		if(user) {
 			writeCookie("username", user.username);
 			_currentUser = user;
-			$log.debug(user.username + ' logged in');
+			PopupService.showMessage("Logged in as a " + user.username);
 			$location.path('/');
+		} else {
+			PopupService.showError("Unable to log in - verify your credentials and try again");
 		}
 	}
 
@@ -33,6 +39,7 @@ module.exports = function(DatabaseService, $location, $log) {
 		writeCookie("username","");
 		_currentUser = null;
 		$location.path('/login');
+		PopupService.showMessage("Logged out");
 	}
 
 	function getCookie(cname) {

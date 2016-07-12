@@ -1,7 +1,7 @@
 <div class="page-title">
 	<h1 ng-bind="blog.blogAuthor.blogname" ></h1>
-	<span ng-hide="blog.onTheUsersPage()" ng-class="blog.isFavorite ? 'added' : ''" class="add-to-favorite" title="Add to favorites" ng-click="blog.addFavoriteClicked()">&#10084;</span>
-	<span ng-hide="blog.onTheUsersPage()" ng-class="blog.isFriend ? 'added' : ''" class="add-to-friends" title="Add to friends" ng-click="blog.addFriendClicked()">&#128149;</span>
+	<span ng-hide="blog.onTheUsersPage()" ng-class="blog.isFavorite() ? 'added' : ''" class="add-to-favorite" title="Add to favorites" ng-click="blog.addFavoriteClicked()">&#10084;</span>
+	<span ng-hide="blog.onTheUsersPage()" ng-class="blog.isFriend() ? 'added' : ''" class="add-to-friends" title="Add to friends" ng-click="blog.addFriendClicked()">&#128149;</span>
 </div>
 <div ng-Show="blog.onTheUsersPage()">
 	<div ng-controller="NewArticleController as newArticle" new-article class="new-article"></div>

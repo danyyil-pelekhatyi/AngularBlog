@@ -1,4 +1,4 @@
-module.exports = function($log, $location) {
+module.exports = function(PopupService, $log, $location) {
 	var _users = [
   		{
   			id: 1,
@@ -306,9 +306,9 @@ module.exports = function($log, $location) {
 			rating: 0
 		};
 		_articles.push(newArticle);
+		PopupService.showMessage("Posted new article: " + article.title);
 		if (_cash.lastArticle.username == user.username) {
 			_cash.lastArticle.username = "";
-			//_cash.lastArticle.articles.push(newArticle);
 		}
 	}
 
@@ -328,11 +328,13 @@ module.exports = function($log, $location) {
 				.splice(indexOfSentRequestFromUserToAdd, 1);
 			userToAddInDatabase.friendsId.push(userInDatabase.id);
 			userInDatabase.friendsId.push(userToAddInDatabase.id);
+			PopupService.showMessage("Added new friend: " + userToAdd.username);
 			_cash.userRequestsRecieved.username = "";
 			_cash.userFriends.username = "";
 		} else {
 			userInDatabase.sentFriendRequestTo.push(userToAdd.id);
 			userToAddInDatabase.gotFriendsRequestsFrom.push(userInDatabase.id);
+			PopupService.showMessage("Friend request to " + userToAdd.username + " sent");
 			_cash.userRequestsSent.username = "";
 		};
 	}
@@ -344,6 +346,7 @@ module.exports = function($log, $location) {
 			.splice(currentUserInDatabase.friendsId.indexOf(userInDatabase.id), 1);
 		userInDatabase.friendsId
 			.splice(userInDatabase.friendsId.indexOf(currentUserInDatabase.id), 1);
+		PopupService.showMessage(user.username + " has been removed from friendlist");
 		_cash.userFriends.username = "";
 	}
 	
@@ -352,7 +355,7 @@ module.exports = function($log, $location) {
 		var userToAddInDatabase = _getUserByUsername(userToAdd.username);
 		userInDatabase.favoritesId.push(userToAddInDatabase.id);
 		_cash.userFavorites.username = "";
-		$log.debug("Favorite added: " + user.username);
+		PopupService.showMessage("Favorite added: " + userToAdd.username);
 	}
 
 	function _removeFavorite(currentUser, user) {
@@ -361,7 +364,7 @@ module.exports = function($log, $location) {
 		currentUserInDatabase.favoritesId
 			.splice(currentUserInDatabase.favoritesId.indexOf(userInDatabase.id), 1);
 		_cash.userFavorites.username = "";
-		$log.debug("Favorite removed: " + user.username);
+		PopupService.showMessage("Favorite removed: " + user.username);
 	}
 
 	function _getFavorites(user) {
@@ -384,8 +387,6 @@ module.exports = function($log, $location) {
 				return userRequestsRecievedId.indexOf(u.id) >= 0;
 			});
 		}
-		//$log.debug("Got friend requests from:");
-		//$log.debug(_cash.userRequestsRecieved.requests);
 		return _cash.userRequestsRecieved.requests;
 	}
 	
@@ -398,8 +399,6 @@ module.exports = function($log, $location) {
 				return userRequestsSentId.indexOf(u.id) >= 0;
 			});
 		}
-		//$log.debug("Sent friend requests to:");
-		//$log.debug(_cash.userRequestsSent.requests);
 		return _cash.userRequestsSent.requests;
 	}
 
@@ -411,6 +410,7 @@ module.exports = function($log, $location) {
 		_cash.userRequestsSent.username = "";
 		friendInDatabase.gotFriendsRequestsFrom
 			.splice(friendInDatabase.gotFriendsRequestsFrom.indexOf(userInDatabase.id), 1);
+		PopupService.showMessage("Friend request to " + friendRequest.username + " canceled");
 	}
 
 	function _declineFriendRequest(user, friendRequest) {
@@ -421,6 +421,7 @@ module.exports = function($log, $location) {
 		_cash.userRequestsRecieved.username = "";
 		userInDatabase.gotFriendsRequestsFrom
 			.splice(userInDatabase.gotFriendsRequestsFrom.indexOf(friendInDatabase.id), 1);
+		PopupService.showMessage("Friend request from " + friendRequest.username + " declined");
 	}
 
 	function _acceptFriendRequest(user, friendRequest) {
@@ -437,8 +438,10 @@ module.exports = function($log, $location) {
 		};
 		if (indexOfDownVote == -1) {
 			articleInDatabase.downVotesBy.push(userInDatabase.id);
+			PopupService.showMessage("Downvoted article: " + article.heading);
 		} else {
 			articleInDatabase.downVotesBy.splice(indexOfDownVote, 1);
+			PopupService.showMessage("Downvote removed from article: " + article.heading);
 		};
 		articleInDatabase.rating =
 			articleInDatabase.upVotesBy.length - articleInDatabase.downVotesBy.length;
@@ -456,8 +459,10 @@ module.exports = function($log, $location) {
 		};
 		if (indexOfUpVote == -1) {
 			articleInDatabase.upVotesBy.push(userInDatabase.id);
+			PopupService.showMessage("Upvoted article: " + article.heading);
 		} else {
 			articleInDatabase.upVotesBy.splice(indexOfUpVote, 1);
+			PopupService.showMessage("Upvote removed from article: " + article.heading);
 		};
 		articleInDatabase.rating =
 			articleInDatabase.upVotesBy.length - articleInDatabase.downVotesBy.length;

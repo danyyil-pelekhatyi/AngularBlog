@@ -115,10 +115,34 @@ form.registration-form input+input {
 	cursor: pointer;
 }
 
-
 .page-title span.add-to-favorite.added,
 .page-title span.add-to-friends.added {
 	color: red;
+}
+
+#pop-up-message {
+	position: fixed;
+    right: 10px;
+    bottom: 10px;
+}
+
+#pop-up-message .popup-message-container {
+    padding: 20px;
+    border: 3px solid;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    margin-right: 0;
+    background: white;
+    clear: both;
+    float: right;
+}
+
+#pop-up-message .popup-message-container.message {
+	border-color: green;
+}
+
+#pop-up-message .popup-message-container.error {
+	border-color: red;
 }
 
 /* New article */

@@ -3,8 +3,8 @@ module.exports = function(UsersService, ArticlesService, LoginService, FriendsSe
 	vm.blogAuthor = UsersService.getUserByUsername($routeParams.username);
 	vm.getArticlesByUsername = ArticlesService.getArticlesByUsername;
 	vm.onTheUsersPage = LoginService.onTheUsersPage;
-	vm.isFavorite = FavoritesService.isFavorite($routeParams.username);
-	vm.isFriend = FriendsService.isFriend($routeParams.username);
+	vm.isFavorite = _isFavorite;
+	vm.isFriend = _isFriend;
 	vm.addFavoriteClicked = _addFavoriteClicked;
 	vm.addFriendClicked = _addFriendClicked;
 	vm.upVote = ArticlesService.upVote;
@@ -12,17 +12,24 @@ module.exports = function(UsersService, ArticlesService, LoginService, FriendsSe
 	vm.isUpVotedByUser = ArticlesService.isUpVotedByUser;
 	vm.isDownVotedByUser = ArticlesService.isDownVotedByUser;
 
+	function _isFavorite() {
+		return FavoritesService.isFavorite($routeParams.username);
+	}
+
+	function _isFriend() {
+		return FriendsService.isFriend($routeParams.username);
+	}
+
 	function _addFavoriteClicked() {
-		if (!vm.isFavorite) {
+		if (!_isFavorite()) {
 			FavoritesService.addFavorite(vm.blogAuthor);
 		} else {
 			FavoritesService.removeFavorite(vm.blogAuthor);
 		}
-		vm.isFavorite = !vm.isFavorite;
 	}
 
 	function _addFriendClicked() {
-		if (!vm.isFriend) {
+		if (!_isFriend()) {
 			FriendsService.addFriend(vm.blogAuthor);
 		} else {
 			var areYouSure = 
@@ -30,7 +37,6 @@ module.exports = function(UsersService, ArticlesService, LoginService, FriendsSe
 				vm.blogAuthor.username + " from friends?");
 			if (areYouSure) {
 				FriendsService.removeFriend(vm.blogAuthor);
-				vm.isFriend = !vm.isFriend;
 			}
 		}
 	}
