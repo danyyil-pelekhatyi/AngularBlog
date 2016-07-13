@@ -79,7 +79,7 @@ form {
 }
 
 nav {
-	background-color: navy;
+	background-color: #668cff;
 }
 
 /* All pages */
@@ -108,7 +108,7 @@ form.registration-form input+input {
 	line-height: 25px;
 	margin-top: 7px;
 	margin-right: 5px;
-	background-color: navy;
+	background-color: #668cff;
 	color: white;
 	border-radius: 5px;
 	text-align: center;
@@ -179,7 +179,7 @@ form.registration-form input+input {
 .new-article input,
 .new-article textarea {
 	width: 100%;
-	border: 1px solid navy;
+	border: 1px solid #668cff;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -196,7 +196,7 @@ form.registration-form input+input {
 	width: 90px;
 	margin-top: 10px;
 	border: none;
-	background-color: navy;
+	background-color: #668cff;
 	color: white;
 	font-size: 15px;
 	font-weight: bold;
@@ -218,7 +218,7 @@ form.registration-form input+input {
 }
 
 .articles .article-rating {
-	background-color: navy;
+	background-color: #668cff;
 	color: white;
 	vertical-align: top;
 	border-radius: 5px;
@@ -253,11 +253,11 @@ form.registration-form input+input {
 .articles .article .title,
 .articles .article .title {
 	color: white;
-	background-color: navy;
+	background-color: #668cff;
 }
 
 .articles .article {
-	border: 1px solid navy;
+	border: 1px solid #668cff;
 	border-radius: 5px;
 	margin-bottom: 15px;
 }
@@ -282,7 +282,7 @@ form.registration-form input+input {
 }
 
 .user-list li h4{
-	background-color: navy;
+	background-color: #668cff;
 	border-radius: 5px;
 	padding: 9px 5px;
 }
@@ -312,7 +312,7 @@ form.registration-form input+input {
 	width: 100%;
 	border-radius: 5px;
 	padding: 10px 5px;
-	border: 1px solid navy;
+	border: 1px solid #668cff;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -324,7 +324,7 @@ form.registration-form input+input {
 }
 
 .friend-requests input[type="button"] {
-	color: navy;
+	color: #668cff;
 	border: none;
 	border-radius: 5px;
 	font-size: 12px;
@@ -369,7 +369,7 @@ form.registration-form input+input {
 	width: 100%;
 	border-radius: 5px;
 	padding: 10px 5px;
-	border: 1px solid navy;
+	border: 1px solid #668cff;
 	-webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
