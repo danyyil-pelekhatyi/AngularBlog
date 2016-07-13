@@ -1,5 +1,48 @@
-module.exports = function(DatabaseService, $location, $log) {
-	var getCookie = function(cname) {
+module.exports = function(DatabaseService, PopupService, $location, $log) {
+	var service = {
+		login: _login,
+		logout: _logout,
+		register: _register,
+		getCurrentUser: function() { return _currentUser; },
+		isLoggedIn: function() { return _currentUser !== undefined;	},
+		onTheUsersPage: _onTheUsersPage
+	}
+
+	var _currentUser = (function() {
+		var cookieUsername = getCookie("username");
+		return cookieUsername.length > 0 ?
+			DatabaseService.getUserByUsername(cookieUsername) : undefined;
+	})();
+
+	return service;
+
+	function _register(user) {
+		if (DatabaseService.addUser(user))  
+			PopupService.showMessage("Registered new user");
+		else
+			PopupService.showError("Registration failed");
+	}
+
+	function _login(user) {
+		var user = DatabaseService.validateCredentials(user);
+		if(user) {
+			writeCookie("username", user.username);
+			_currentUser = user;
+			PopupService.showMessage("Logged in as a " + user.username);
+			$location.path('/');
+		} else {
+			PopupService.showError("Unable to log in - verify your credentials and try again");
+		}
+	}
+
+	function _logout() {
+		writeCookie("username","");
+		_currentUser = null;
+		$location.path('/login');
+		PopupService.showMessage("Logged out");
+	}
+
+	function getCookie(cname) {
 	    var name = cname + "=";
 	    var ca = document.cookie.split(';');
 	    for(var i = 0; i <ca.length; i++) {
@@ -14,43 +57,10 @@ module.exports = function(DatabaseService, $location, $log) {
 	    return "";
 	}
 
-	var writeCookie = function(cname, cvalue) {document.cookie = cname + "=" + cvalue;}
+	function writeCookie(cname, cvalue) {document.cookie = cname + "=" + cvalue;}
 
-	var _currentUser = (function() {
-		var cookieUsername = getCookie("username");
-		return cookieUsername.length > 0 ?
-			DatabaseService.getUserByUsername(cookieUsername) : undefined;
-	})();
-
-	var service = {
-		login: function(user) {
-			var user = DatabaseService.validateCredentials(user);
-			if(user) {
-				writeCookie("username", user.username);
-				_currentUser = user;
-				$log.debug(user.username + ' logged in');
-				$location.path('/');
-			}
-		},
-
-		logout: function() {
-			writeCookie("username","");
-			_currentUser = null;
-			$location.path('/login');
-		},
-
-		register: function(user) {
-			DatabaseService.addUser(user);
-		},
-
-		getCurrentUser: function() {
-			return _currentUser;
-		},
-
-		isLoggedIn: function() {
-			return _currentUser !== undefined;
-		}
+	function _onTheUsersPage() {
+		var usersPage = "/blogs/" + _currentUser.username;
+		return $location.url() == usersPage || $location.url().startsWith(usersPage + "/");
 	}
-
-	return service;
 }

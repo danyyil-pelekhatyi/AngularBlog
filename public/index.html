@@ -5,8 +5,8 @@
 	<title>My App</title>
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
-<body ng-controller="MainController as main">
-	<div class="container" ng-class="main.themeMap">
+<body>
+	<div class="container">
 		<nav>
 			<div class="container">
 				<img src="">
@@ -16,6 +16,13 @@
 		  		<a href="/#/popular/">Popular</a>
 	  		</div>
 		</nav>
+		<div id="pop-up-message" ng-controller="PopupController as popup">
+			<div class="popup-message-container" ng-repeat=" message in popup.getMessages() | orderBy:'-id'" ng-class="message.type"  id="{{message.id}}">
+				<div class="popup-message">
+					<p ng-bind="message.text"></p>
+				</div>
+			</div>
+		</div>
 		<div id="content" ng-view>
 		</div>
 	</div>

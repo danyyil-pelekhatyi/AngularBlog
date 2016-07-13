@@ -1,12 +1,15 @@
-module.exports = function(DatabaseService, $routeParams) {
+module.exports = function(ArticlesService, LoginService, $routeParams) {
 	var vm = this;
-
+	
 	vm.newArticle = {
-		title: "Title",
-		article: "Text"
+		title: "",
+		article: ""
 	};
 	vm.onSumbit = function() {
-		DatabaseService.addArticle(main.getCurrentUser(), vm.newArticle);
-		$routeParams.reload();
-	}
+		ArticlesService.addArticle(LoginService.getCurrentUser(), vm.newArticle);
+		vm.newArticle = {
+			title: "",
+			article: ""
+		}
+	};
 }

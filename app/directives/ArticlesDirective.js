@@ -4,7 +4,13 @@ module.exports = function ($compile) {
 		replace: true,
 		templateUrl: 'views/directives/Articles.html',
 		scope: {
-			articles: "=articles"
+			articles: "=articles",
+			onUsersPage: "=onUsersPage",
+			isUpVotedByUser: "=isUpVotedByUser",
+			isDownVotedByUser: "=isDownVotedByUser",
+			upVote: "=upVote",
+			downVote: "=downVote",
+			sortOrder: "=sortOrder"
 		}
 	}
 }

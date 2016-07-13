@@ -1,10 +1,23 @@
 <div class="articles">
-	<div class="article" ng-repeat="article in articles">
-		<h3 ng-bind="article.heading"></h1>
-		<span>By:</span>
-		<span ng-bind="article.author"></span>
-		<br/>
-		<span ng-bind="article.date.toLocaleDateString('en-US')"></span>
-		<p ng-bind="article.article"></p>
+	<div ng-repeat="article in articles | orderBy:sortOrder">
+		<div class="article-rating" ng-class="isUpVotedByUser(article) ? 'upvoted' : isDownVotedByUser(article) ? 'downvoted' : ''" ng-hide="onUsersPage">
+			<div class="upvote" ng-click="upVote(article)">&#9650;</div>
+			<div>
+				<span ng-bind="article.rating"></span>
+			</div>
+			<div class="downvote" ng-click="downVote(article)">&#9660;</div>
+		</div>
+		<div class="article" ng-class="onUsersPage ? 'without-rating' : ''">
+			<div class="title">
+				<h3 ng-bind="article.heading"></h1>
+				<span ng-bind="'at ' + article.date.getHours() + ':' + article.date.getMinutes()"></span>
+				<span ng-bind="article.date.toLocaleDateString('en-US')"></span>
+				<span ng-bind="article.author"></span>
+				<span>By:</span>
+			</div>
+			<div class="content">
+				<p ng-bind="article.article"></p>
+			</div>
+		</div>
 	</div>
 </div>
