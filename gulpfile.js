@@ -32,11 +32,6 @@ gulp.task('browserify', function() {
         .pipe(livereload());
 })
 
-gulp.task('watch', function() {
-	gulp.watch('app/**/*.js', ['browserify']);
-	gulp.watch('app/css/*.css', ['minify']);
-})
-
 gulp.task('minify', function() {
   return gulp.src('app/css/**/*.*')
     .pipe(cleanCSS())
@@ -44,10 +39,29 @@ gulp.task('minify', function() {
     .pipe(livereload());;
 });
 
+gulp.task('publish', function() {
+    return gulp.src('app/features/**/*.html')
+    .pipe(gulp.dest('public/views/'))
+    .pipe(livereload());;
+})
+
+gulp.task('publish2', function() {
+    return gulp.src('app/directives/**/*.html')
+    .pipe(gulp.dest('public/views/directives/'))
+    .pipe(livereload());;
+})
+
+gulp.task('watch', function() {
+	gulp.watch('app/**/*.js', ['browserify']);
+	gulp.watch('app/css/*.css', ['minify']);
+    gulp.watch('app/features/**/*.html', ['publish'])
+    gulp.watch('app/directives/**/*.html', ['publish2'])
+})
+
 gulp.task('tdd', function (done) {
   new server({
     configFile: __dirname + '/karma.conf.js',
   }, done).start();
 });
 
-gulp.task('default', ['minify', 'connect', 'tdd', 'watch'])
+gulp.task('default', ['browserify', 'minify', 'publish', 'publish2', 'connect', 'tdd', 'watch'])

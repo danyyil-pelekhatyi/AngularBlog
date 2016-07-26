@@ -1,0 +1,10 @@
+<div class="page-title">
+	<h1>Favorite</h1>
+</div>
+<div class="favorites-list">
+	<label for="favorites-search">Search:</label>
+	<div class="input-container">
+		<input id="favorites-search" type="text" ng-model="favorites.searchText"/>
+	</div>
+	<user-list users="favorites.favorites()" search-term="favorites.searchText" />
+</div>
