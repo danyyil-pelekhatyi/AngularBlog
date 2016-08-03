@@ -1,80 +1,68 @@
 require('angular')
 require('angular-route')
-
-var LoginService = require('./services/LoginService')
-var DatabaseService = require('./services/DatabaseService')
-var UsersService = require('./services/UsersService')
-var FriendsService = require('./services/FriendsService')
-var FavoritesService = require('./services/FavoritesService')
-var ArticlesService = require('./services/ArticlesService')
-var PopupService = require('./services/PopupService')
-var BlogController = require('./controllers/BlogController')
-var NewArticleController = require('./controllers/NewArticleController')
-var LoginController = require('./controllers/LoginController')
-var FriendsController = require('./controllers/FriendsController')
-var FavoritesController = require('./controllers/FavoritesController')
-var PopularController = require('./controllers/PopularController')
-var PopupController = require('./controllers/PopupController')
-var ArticlesDirective = require('./directives/ArticlesDirective')
-var NewArticleDirective = require('./directives/NewArticleDirective')
-var UserListDirective = require('./directives/UserListDirective')
-
-angular.module('app', ['ngRoute'])
-	.service('DatabaseService', ['PopupService', '$log', '$location', DatabaseService])
-	.service('PopupService', ['$interval', PopupService])
-	.service('LoginService', ['DatabaseService', 'PopupService', '$location', '$log', LoginService])
-	.service('FriendsService', ['LoginService', 'DatabaseService', FriendsService])
-	.service('FavoritesService', ['DatabaseService', 'LoginService', FavoritesService])
-	.service('UsersService', ['DatabaseService', UsersService])
-	.service('ArticlesService', ['DatabaseService', 'LoginService', ArticlesService])
-	.controller('BlogController', ['UsersService', 'ArticlesService', 'LoginService', 'FriendsService', 'FavoritesService', '$routeParams', '$log', BlogController])
-	.controller('NewArticleController', ['ArticlesService', 'LoginService', '$routeParams', NewArticleController])
-	.controller('LoginController', ['LoginService', LoginController])
-	.controller('FriendsController', ['LoginService', 'FriendsService', '$log', FriendsController])
-	.controller('FavoritesController', ['LoginService', 'FavoritesService', FavoritesController])
-	.controller('PopularController', ['ArticlesService', PopularController])
-	.controller('PopupController', ['PopupService', PopupController])
-	.directive('articles', ArticlesDirective)
-	.directive('newArticle', NewArticleDirective)
-	.directive('userList', UserListDirective)
-	.config(['$routeProvider', '$logProvider',
+var app = angular.module('app', ['ngRoute']);
+require('./services/LoginService')
+require('./services/DatabaseService')
+require('./services/UsersService')
+require('./services/FriendsService')
+require('./services/FavoritesService')
+require('./services/ArticlesService')
+require('./services/PopupService')
+require('./features/Blog/BlogController')
+require('./features/NewArticle/NewArticleController')
+require('./features/Login/LoginController')
+require('./features/Friends/FriendsController')
+require('./features/Favorites/FavoritesController')
+require('./features/Popular/PopularController')
+require('./features/Popup/PopupController')
+require('./features/AdminPage/AdminPageController')
+require('./features/ArticlesEdit/ArticlesEditController')
+require('./directives/Articles/ArticlesDirective')
+require('./directives/ContentEditable/ContentEditableDirective')
+require('./directives/NewArticle/NewArticleDirective')
+require('./directives/UserList/UserListDirective')
+	
+app.config(['$routeProvider', '$logProvider',
 		function($routeProvider, $logProvider) {
 			$logProvider.debugEnabled(true);
 			$routeProvider
 				.when('/friends', {
 					controller: "FriendsController as friends",
-					templateUrl: "views/Friends.html"
+					templateUrl: "views/Friends/Friends.html"
 				})
 				.when('/login', {
 					controller: "LoginController as login",
-					templateUrl: "views/Login.html"
+					templateUrl: "views/Login/Login.html"
 				})
 				.when('/favorite', {
 					controller: "FavoritesController as favorites",
-					templateUrl: "views/Favorites.html"
+					templateUrl: "views/Favorites/Favorites.html"
 				})
 				.when('/blogs/:username', {
 					controller: "BlogController as blog",
-					templateUrl: 'views/Blog.html'
+					templateUrl: 'views/Blog/Blog.html'
 				})
 				.when('/popular', {
 					controller: "PopularController as popular",
-					templateUrl: 'views/Popular.html'
+					templateUrl: 'views/Popular/Popular.html'
+				})
+				.when('/my_posts', {
+					controller: "AdminPageController as admin",
+					templateUrl: 'views/AdminPage/AdminPage.html'
 				})
 				.otherwise('/');
 		}
 	])
-	.run(['$rootScope', '$log', '$location', 'LoginService', function($rootScope, $log, $location, LoginService) {
-		$rootScope.$on('$routeChangeStart', function(event, current, previous) {
-			//$log.debug('$routeChangeStart - location: ' + $location.path());
-			//$log.debug('You are logged in: ' + LoginService.isLoggedIn());
-			if($location.path() == '/' && LoginService.isLoggedIn()) {
-				$location.path('/blogs/' + LoginService.getCurrentUser().username);
-			} else {
-				if($location.path() !== '/login' && !LoginService.isLoggedIn()) {
-					//$log.debug('Redirected to login page');
-					$location.path('/login');
+	.run(['$rootScope', '$log', '$location', 'LoginService',
+		function($rootScope, $log, $location, LoginService) {
+			$rootScope.$on('$routeChangeStart', function(event, current, previous) {
+				if($location.path() == '/' && LoginService.isLoggedIn()) {
+					$location.path('/blogs/' + LoginService.getCurrentUser().username);
+				} else {
+					if($location.path() !== '/login' && !LoginService.isLoggedIn()) {
+						$location.path('/login');
+					}
 				}
-			}
-		});
-	}]);
+			});
+		}
+	]);

@@ -1,0 +1,5 @@
+<div class="page-title">
+	<h1>Posts management</h1>
+</div>
+<div ng-controller="NewArticleController as newArticle" new-article class="new-article"></div>
+<articles articles="admin.getArticles()" on-users-page="true" sort-order="'-publishDate'" />

@@ -11,12 +11,13 @@
 			<div class="container">
 				<img src="">
 		  		<a href="/">My Blog</a>
-		  		<a href="/#/favorite/">Favorite</a>
-		  		<a href="/#/friends/">Friends</a>
-		  		<a href="/#/popular/">Popular</a>
+		  		<a href="#/my_posts">My posts</a>
+		  		<a href="#/favorite/">Favorite</a>
+		  		<a href="#/friends/">Friends</a>
+		  		<a href="#/popular/">Popular</a>
 	  		</div>
 		</nav>
-		<div id="pop-up-message" ng-controller="PopupController as popup">
+		<div id="pop-up-message" ng-controller="PopupController as popup" class="ng-cloak">
 			<div class="popup-message-container" ng-repeat=" message in popup.getMessages() | orderBy:'-id'" ng-class="message.type"  id="{{message.id}}">
 				<div class="popup-message">
 					<p ng-bind="message.text"></p>

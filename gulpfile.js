@@ -7,7 +7,6 @@ var uglify      = require('gulp-uglify');
 var streamify   = require('gulp-streamify');
 var cleanCSS = require('gulp-clean-css');
 var source = require('vinyl-source-stream');
-var livereload = require('gulp-livereload');
 var jasmine = require('gulp-jasmine');
 
 var server = require('karma').Server;
@@ -16,7 +15,8 @@ var server = require('karma').Server;
 gulp.task('connect', function () {
 	connect.server({
 		root: 'public',
-		port: 4000
+		port: 4000,
+        livereload: true
 	})
 })
 
@@ -29,20 +29,34 @@ gulp.task('browserify', function() {
         //.pipe(streamify(uglify()))
         // saves it the public/js/ directory
         .pipe(gulp.dest('./public/js/'))
-        .pipe(livereload());
-})
-
-gulp.task('watch', function() {
-	gulp.watch('app/**/*.js', ['browserify']);
-	gulp.watch('app/css/*.css', ['minify']);
+        .pipe(connect.reload());
 })
 
 gulp.task('minify', function() {
   return gulp.src('app/css/**/*.*')
     .pipe(cleanCSS())
     .pipe(gulp.dest('public/css'))
-    .pipe(livereload());;
+    .pipe(connect.reload());;
 });
+
+gulp.task('publish', function() {
+    return gulp.src('app/features/**/*.html')
+    .pipe(gulp.dest('public/views/'))
+    .pipe(connect.reload());;
+})
+
+gulp.task('publish2', function() {
+    return gulp.src('app/directives/**/*.html')
+    .pipe(gulp.dest('public/views/directives/'))
+    .pipe(connect.reload());;
+})
+
+gulp.task('watch', function() {
+	gulp.watch('app/**/*.js', ['browserify']);
+	gulp.watch('app/css/*.css', ['minify']);
+    gulp.watch('app/features/**/*.html', ['publish'])
+    gulp.watch('app/directives/**/*.html', ['publish2'])
+})
 
 gulp.task('tdd', function (done) {
   new server({
@@ -50,4 +64,4 @@ gulp.task('tdd', function (done) {
   }, done).start();
 });
 
-gulp.task('default', ['minify', 'connect', 'tdd', 'watch'])
+gulp.task('default', ['browserify', 'minify', 'publish', 'publish2', 'connect', 'tdd', 'watch'])

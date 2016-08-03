@@ -1,0 +1,31 @@
+<div class="articles">
+	<div ng-repeat="article in articles | orderBy:sortOrder">
+		<div class="article-rating" ng-class="isUpVotedByUser(article) ? 'upvoted' : isDownVotedByUser(article) ? 'downvoted' : ''" ng-hide="onUsersPage">
+			<div class="upvote" ng-click="upVote(article)">&#9650;</div>
+			<div>
+				<span ng-bind="article.rating"></span>
+			</div>
+			<div class="downvote" ng-click="downVote(article)">&#9660;</div>
+		</div>
+		<div class="article" ng-class="onUsersPage ? 'without-rating' : ''">
+			<div class="title">
+				<h3 ng-bind="article.heading" ng-hide="article.editMode"></h1>
+				<h3 ng-model="vm.editingArticle.heading" ng-show="article.editMode" contenteditable></h1>
+
+				<span ng-show="onUsersPage" ng-click="vm.onArticleEditClick(article)" class="edit-article-button">&#10000;</span>
+				<span ng-bind="'at ' + article.publishDate.getHours() + ':' + article.publishDate.getMinutes()"></span>
+				<span ng-bind="article.publishDate.toLocaleDateString('en-US')"></span>
+				<span ng-bind="article.author"></span>
+				<span>By:</span>
+			</div>
+			<div class="content">
+				<p ng-bind="article.article" ng-hide="article.editMode"></p>
+				<p ng-model="vm.editingArticle.article" ng-show="article.editMode" contenteditable></p>
+				<div ng-show="article.editMode">
+					<input type="button" value="Save" ng-click="vm.onArticleSaveEditClick(article)" />
+					<input type="button" value="Cancel" ng-click="vm.onArticleCancelEditClick(article)" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
