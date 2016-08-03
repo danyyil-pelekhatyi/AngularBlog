@@ -4,6 +4,30 @@
 			['PopupService', '$log', '$location', DatabaseService]);
 
 	function DatabaseService(PopupService, $log, $location) {
+		var service = {
+			getUserByUsername: _getUserByUsername,
+			addUser: function(user) { _users.push(user | _emptyUser); },
+			validateCredentials: _validateCredentials,
+			getArticlesByUsername: _getArticlesByUsername,
+			getArticleById: _getArticleById,
+			getUserFriends: _getUserFriends,
+			addArticle: _addArticle,
+			editArticle: _editArticle,
+			addFriend: _addFriend,
+			removeFriend: _removeFriend,
+			addFavorite: _addFavorite,
+			removeFavorite: _removeFavorite,
+			getFavorites: _getFavorites,
+			gotFriendsRequestsFrom: _gotFriendsRequestsFrom,
+			sentFriendRequestTo: _sentFriendRequestTo,
+			cancelFriendRequest: _cancelFriendRequest,
+			declineFriendRequest: _declineFriendRequest,
+			acceptFriendRequest: _acceptFriendRequest,
+			downVoteArticle: _downVoteArticle,
+			upVoteArticle: _upVoteArticle,
+			getPopularArticles: _getPopularArticles
+		};
+
 		var _users = [
 	  		{
 	  			id: 1,
@@ -86,7 +110,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 5, 15, 30),
+				publishDate: new Date(2016, 5, 5, 15, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -97,7 +121,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 5, 14, 30),
+				publishDate: new Date(2016, 5, 5, 14, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -108,7 +132,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 5, 12, 30),
+				publishDate: new Date(2016, 5, 5, 12, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -119,7 +143,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 5, 16, 30),
+				publishDate: new Date(2016, 5, 5, 16, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -130,7 +154,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 4, 15, 30),
+				publishDate: new Date(2016, 5, 4, 15, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -141,7 +165,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 3, 11, 30),
+				publishDate: new Date(2016, 5, 3, 11, 30),
 				upVotesBy: [ 1 ],
 				downVotesBy: [],
 				rating: 1
@@ -152,7 +176,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 5, 1, 12, 30),
+				publishDate: new Date(2016, 5, 1, 12, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -163,7 +187,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me',
-				date: new Date(2016, 4, 30, 11, 30),
+				publishDate: new Date(2016, 4, 30, 11, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -174,7 +198,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me5',
-				date: new Date(2016, 4, 5, 19, 30),
+				publishDate: new Date(2016, 4, 5, 19, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -185,7 +209,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me5',
-				date: new Date(2016, 5, 4, 15, 30),
+				publishDate: new Date(2016, 5, 4, 15, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -196,7 +220,7 @@
 				heading: "Hello, |Bitches!",
 				article: "Lorem ipsum",
 				author: 'Me5',
-				date: new Date(2016, 5, 3, 15, 30),
+				publishDate: new Date(2016, 5, 3, 15, 30),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -238,27 +262,7 @@
 			}
 		};
 
-		return {
-			getUserByUsername: _getUserByUsername,
-			addUser: function(user) { _users.push(user | _emptyUser); },
-			validateCredentials: _validateCredentials,
-			getArticlesByUsername: _getArticlesByUsername,
-			getUserFriends: _getUserFriends,
-			addArticle: _addArticle,
-			addFriend: _addFriend,
-			removeFriend: _removeFriend,
-			addFavorite: _addFavorite,
-			removeFavorite: _removeFavorite,
-			getFavorites: _getFavorites,
-			gotFriendsRequestsFrom: _gotFriendsRequestsFrom,
-			sentFriendRequestTo: _sentFriendRequestTo,
-			cancelFriendRequest: _cancelFriendRequest,
-			declineFriendRequest: _declineFriendRequest,
-			acceptFriendRequest: _acceptFriendRequest,
-			downVoteArticle: _downVoteArticle,
-			upVoteArticle: _upVoteArticle,
-			getPopularArticles: _getPopularArticles
-		};
+		return service;
 
 		function _getUserByUsername(username) {
 			var result = _users.find( function(user)
@@ -276,15 +280,20 @@
 			return result;
 		}
 
-		function _getArticlesByUsername(username) {
+		function _getArticlesByUsername(user, username) {
 			if (_cash.lastArticle.username !== username) {
 				_cash.lastArticle.username = username;
 				var userId = _getUserByUsername(username).id;
 				_cash.lastArticle.articles = _articles.filter( function(article) {
-					return article.userId == userId;
+					return (article.userId == userId &&
+						user.username == username || article.publishDate < Date.now());
 				});
 			}
 			return _cash.lastArticle.articles;
+		}
+
+		function _getArticleById(id) {
+			return _articles.find(function(el, i, array) { return el.id == id; });
 		}
 
 		function _getUserFriends(username) {
@@ -305,7 +314,7 @@
 				heading: article.title,
 				article: article.article,
 				author: user.username,
-				date: new Date(Date.now()),
+				publishDate: new Date(Date.now()),
 				upVotesBy: [],
 				downVotesBy: [],
 				rating: 0
@@ -315,6 +324,15 @@
 			if (_cash.lastArticle.username == user.username) {
 				_cash.lastArticle.username = "";
 			}
+		}
+
+		function _editArticle(article) {
+			var articleInDatabase = _getArticleById(article.id);
+			articleInDatabase.title = article.heading;
+			articleInDatabase.article = article.article;
+			articleInDatabase.publishDate = article.publishDate;
+			PopupService.showMessage("Edited an article: " + article.title);
+			_cash.lastArticle.username = "";
 		}
 
 		function _addFriend(user, userToAdd) {

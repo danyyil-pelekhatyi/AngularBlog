@@ -6,4 +6,4 @@
 <div ng-Show="blog.onTheUsersPage()">
 	<div ng-controller="NewArticleController as newArticle" new-article class="new-article"></div>
 </div>
-<articles articles="blog.getArticlesByUsername(blog.blogAuthor.username)" on-users-page="blog.onTheUsersPage()" is-up-voted-by-user="blog.isUpVotedByUser" is-down-voted-by-user="blog.isDownVotedByUser" sort-order="'-date'" up-vote="blog.upVote" down-vote="blog.downVote"/>
+<articles articles="blog.getArticlesByUsername(blog.blogAuthor.username)" on-users-page="blog.onTheUsersPage()" is-up-voted-by-user="blog.isUpVotedByUser" is-down-voted-by-user="blog.isDownVotedByUser" sort-order="'-publishDate'" up-vote="blog.upVote" down-vote="blog.downVote"/>

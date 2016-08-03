@@ -1,13 +1,13 @@
 (function() {
 	angular.module('app')
 		.controller('BlogController',
-			['UsersService', 'ArticlesService', 'LoginService', 'FriendsService',
+			['$scope', 'UsersService', 'ArticlesService', 'LoginService', 'FriendsService',
 			 'FavoritesService', '$routeParams', '$log', BlogController])
 
-	function BlogController(UsersService, ArticlesService, LoginService, FriendsService, FavoritesService, $routeParams, $log) {
+	function BlogController($scope, UsersService, ArticlesService, LoginService, FriendsService, FavoritesService, $routeParams, $log) {
 		var vm = this;
 		vm.blogAuthor = UsersService.getUserByUsername($routeParams.username);
-		vm.getArticlesByUsername = ArticlesService.getArticlesByUsername;
+		vm.getArticlesByUsername = _getArticlesByUsername;
 		vm.onTheUsersPage = LoginService.onTheUsersPage;
 		vm.isFavorite = _isFavorite;
 		vm.isFriend = _isFriend;
@@ -17,6 +17,11 @@
 		vm.downVote = ArticlesService.downVote;
 		vm.isUpVotedByUser = ArticlesService.isUpVotedByUser;
 		vm.isDownVotedByUser = ArticlesService.isDownVotedByUser;
+
+		function _getArticlesByUsername() {
+			return ArticlesService
+				.getArticlesByUsername(LoginService.getCurrentUser(), vm.blogAuthor.username);
+		}
 
 		function _isFavorite() {
 			return FavoritesService.isFavorite($routeParams.username);

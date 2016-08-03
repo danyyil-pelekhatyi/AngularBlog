@@ -16,7 +16,9 @@
 				upVote: "=upVote",
 				downVote: "=downVote",
 				sortOrder: "=sortOrder"
-			}
+			},
+			controller: 'ArticlesEditController',
+			controllerAs: 'vm'
 		}
 	}
 })()

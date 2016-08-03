@@ -9,14 +9,22 @@
 		</div>
 		<div class="article" ng-class="onUsersPage ? 'without-rating' : ''">
 			<div class="title">
-				<h3 ng-bind="article.heading"></h1>
-				<span ng-bind="'at ' + article.date.getHours() + ':' + article.date.getMinutes()"></span>
-				<span ng-bind="article.date.toLocaleDateString('en-US')"></span>
+				<h3 ng-bind="article.heading" ng-hide="article.editMode"></h1>
+				<h3 ng-model="vm.editingArticle.heading" ng-show="article.editMode" contenteditable></h1>
+
+				<span ng-show="onUsersPage" ng-click="vm.onArticleEditClick(article)" class="edit-article-button">&#10000;</span>
+				<span ng-bind="'at ' + article.publishDate.getHours() + ':' + article.publishDate.getMinutes()"></span>
+				<span ng-bind="article.publishDate.toLocaleDateString('en-US')"></span>
 				<span ng-bind="article.author"></span>
 				<span>By:</span>
 			</div>
 			<div class="content">
-				<p ng-bind="article.article"></p>
+				<p ng-bind="article.article" ng-hide="article.editMode"></p>
+				<p ng-model="vm.editingArticle.article" ng-show="article.editMode" contenteditable></p>
+				<div ng-show="article.editMode">
+					<input type="button" value="Save" ng-click="vm.onArticleSaveEditClick(article)" />
+					<input type="button" value="Cancel" ng-click="vm.onArticleCancelEditClick(article)" />
+				</div>
 			</div>
 		</div>
 	</div>
