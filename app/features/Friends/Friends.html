@@ -15,7 +15,7 @@
 			<ul>
 				<li class="friend-requests-recieved-list-item" ng-repeat="friendRequest in friends.friendRequestsRecieved()">
 					<h4>
-						<a ng-href="/AngularBlog/public/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
+						<a ng-href="/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
 						<div class="buttons-container">
 							<input type="button" value="Accept" ng-click="friends.onAcceptRequestClick(friendRequest)" />
 							<input type="button" value="Decline" ng-click="friends.onDeclineRequestClick(friendRequest)" />
@@ -29,7 +29,7 @@
 			<ul>
 				<li class="friend-requests-sent-list-item" ng-repeat="friendRequest in friends.friendRequestsSent()">
 					<h4>
-						<a ng-href="/AngularBlog/public/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
+						<a ng-href="/#/blogs/{{friendRequest.username}}" ng-bind="friendRequest.username"></a>
 						<div class="buttons-container">
 							<input type="button" value="Cancel" ng-click="friends.onCancelRequestClick(friendRequest)" />
 						</div>

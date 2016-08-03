@@ -57,10 +57,10 @@ app.config(['$routeProvider', '$logProvider',
 		function($rootScope, $log, $location, LoginService) {
 			$rootScope.$on('$routeChangeStart', function(event, current, previous) {
 				if($location.path() == '/' && LoginService.isLoggedIn()) {
-					$location.path('/AngularBlog/public/blogs/' + LoginService.getCurrentUser().username);
+					$location.path('/blogs/' + LoginService.getCurrentUser().username);
 				} else {
 					if($location.path() !== '/login' && !LoginService.isLoggedIn()) {
-						$location.path('/AngularBlog/public/login');
+						$location.path('/login');
 					}
 				}
 			});

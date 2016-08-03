@@ -1,7 +1,7 @@
 <div class="user-list">
 	<ul>
 		<li class="user-list-item" ng-repeat="user in users | filter:searchTerm">
-			<a ng-href="/AngularBlog/public/#/blogs/{{user.username}}">
+			<a ng-href="/#/blogs/{{user.username}}">
 				<h4 ng-bind="user.blogname + ' by ' + user.username"></h4>
 			</a>
 		</li>
